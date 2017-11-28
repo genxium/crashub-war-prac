@@ -11,10 +11,11 @@ public class SimpleHttp extends HttpServlet {
       // Set the response message's MIME type
       response.setContentType("text/html;charset=UTF-8");
       // Allocate a output writer to write the response message into the network socket
-      PrintWriter out = response.getWriter();
- 
+      PrintWriter out = null;
+
       // Write the response message, in an HTML page
       try {
+         out = response.getWriter();
          out.println("<!DOCTYPE html>");
          out.println("<html><head>");
          out.println("<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>");
@@ -31,7 +32,9 @@ public class SimpleHttp extends HttpServlet {
          out.println("</body>");
          out.println("</html>");
       } finally {
-         out.close();  // Always close the output writer
+         if (null != out) {
+            out.close();
+         }
       }
    }
 }

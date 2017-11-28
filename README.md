@@ -15,3 +15,4 @@ Please use gradle 2.14.x or up.
 - proj-root> cp -r build/libs/crashub-war-prac.war /path/to/apache-tomcat-8.5.23/webapps/ 
 - ${catalina.base}> sh bin/catalina.sh run
 - visit `http://localhost:8080/crashub-war-prac/index` in browser.
+- access the sshd service by `ssh -p 2000 admin@localhost`.

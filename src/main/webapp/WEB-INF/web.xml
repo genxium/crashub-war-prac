@@ -23,5 +23,10 @@
       <servlet-name>SimpleHttpServlet</servlet-name>
       <url-pattern>/index</url-pattern>
    </servlet-mapping>
+
+  <listener>
+    <!-- Provided by "org.crsh:crsh.plugins" in one of the classpaths. Upon successful launch of this `web-app`, an `org.crsh.ssh.SSHPlugin` should be automatically initialized and listening on port 2000, if not otherwise specified in `<docBase>/WEB-INF/crash/crash.properties`. -->
+    <listener-class>org.crsh.plugin.WebPluginLifeCycle</listener-class>
+  </listener>
 </web-app>
 

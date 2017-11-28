@@ -18,31 +18,21 @@ sourceSets {
 project.webAppDirName = "src/main/webapp"
 
 def servletApiVer = "2.5"
-def smackProdVer = "4.2.0"
-def mssVer = "4.0.119"
-def nistSdpVer = "1.0"
-def jasperVer = "6.0.32"
-def akkaActor212Ver = "2.5.3"
-def jacksonVer = "2.8.9"
 def slf4jVer = "1.7.25"
 def logbackVer = "1.2.3"
 def logbackLogStashAdapterVer = "4.11"
-def codehausMojoVer = "1.15"
-// def log4j2Ver = "2.8.2"
+
+def crashubVer = '1.3.+'
+def groovyVer = '2.1.+'
+
+def testngVer = '6.+'
 
 dependencies {
-    // smack
-    compile "org.igniterealtime.smack:smack-extensions:${smackProdVer}"
-    compile "org.igniterealtime.smack:smack-core:${smackProdVer}"
-    compile "org.igniterealtime.smack:smack-im:${smackProdVer}"
-    compile "org.igniterealtime.smack:smack-tcp:${smackProdVer}"
-    compile "org.igniterealtime.smack:smack-java7:${smackProdVer}"
+    compile group: 'org.codehaus.groovy', name: 'groovy-all', version: groovyVer
 
-    compile "org.apache.tomcat:jasper:${jasperVer}"
-
-    // Akka-actor.
-    compile "com.typesafe.akka:akka-actor_2.12:${akkaActor212Ver}"
-    compile group: "com.typesafe.akka", name: "akka-slf4j_2.12", version: "${akkaActor212Ver}"
+    compile group: 'org.crsh', name: 'crsh.plugins', version: crashubVer, ext: 'pom'
+    compile("org.crashub:crash.connectors.ssh:$crashubVer")
+    compile("org.crashub:crash.cli:$crashubVer")
 
     // Slf4j-api.
     compile group: "org.slf4j", name: "slf4j-api", version: "${slf4jVer}"
@@ -54,29 +44,15 @@ dependencies {
     // Logstash adaptation of Logback.
     compile group: "net.logstash.logback", name: "logstash-logback-encoder", version: "${logbackLogStashAdapterVer}"
 
-    /*
-    // Dependencies for Log4j-2.x as Slf4j-api implementation.
-    compile group: "org.apache.logging.log4j", name: "log4j-api", version: "${log4j2Ver}"
-    compile group: "org.apache.logging.log4j", name: "log4j-core", version: "${log4j2Ver}"
-    compile group: "org.apache.logging.log4j", name: "log4j-slf4j-impl", version: "${log4j2Ver}"
-    */
-
-    // Sdp.
-    compile "javax.sdp:nist-sdp:${nistSdpVer}"
-
-    // Jackson.
-    compile group: "com.fasterxml.jackson.core", name: "jackson-core", version: "${jacksonVer}"
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: "${jacksonVer}"
-
     providedCompile "javax.servlet:servlet-api:${servletApiVer}"
 
-    providedCompile "org.mobicents.servlet.sip:sip-servlets-impl:${mssVer}"
-    providedCompile "org.mobicents.servlet.sip:sip-servlets-core-api:${mssVer}"
-    providedCompile "org.mobicents.servlet.sip:sip-servlets-spec:${mssVer}"
-
-    // Codehaus-mojo.
-    providedCompile group: "org.codehaus.mojo", name: "animal-sniffer-annotations", version: "${codehausMojoVer}"
+    testCompile group: 'org.testng', name: 'testng', version: testngVer
 }
 
 war {
+}
+
+test {
+    useTestNG()
+    testLogging.showStandardStreams = true
 }
